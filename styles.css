@@ -1,8 +1,3 @@
-const express = require("express");
-const app = express();
-
-app.use(express.json());
-
 function convertToRoman(num) {
   const values = [
     ['M', 1000], ['CM', 900],
@@ -23,16 +18,9 @@ function convertToRoman(num) {
     }
   }
 
-  return result;
+  return result; //
 }
 
-
-app.post("/romanConverter", (req, res) => {
-  const num = req.body.input;
-  const roman = convertToRoman(num);
-
-  res.json({ roman: roman });
-});
-
-app.listen(3000, () => console.log("Server running on port 3000"));
+// do not edit below this line
+module.exports = convertToRoman;
 	

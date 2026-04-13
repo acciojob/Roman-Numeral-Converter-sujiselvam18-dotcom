@@ -1,28 +1,9 @@
-/* Your CSS Code here. */
+const express = require("express");
+const app = express();
+
+app.use(express.json());
+
 function convertToRoman(num) {
-  const obj = {
-    0: ['M', 1000], 
-    1: ['D', 500], 
-    2: ['C', 100], 
-    3: ['L', 50], 
-    4: ['X', 10], 
-    5: ['V', 5], 
-    6: ['I', 1]
-  };
-
-  // Special Roman cases (important)
-  const special = [
-    ['CM', 900],
-    ['CD', 400],
-    ['XC', 90],
-    ['XL', 40],
-    ['IX', 9],
-    ['IV', 4]
-  ];
-
-  let result = "";
-
-  // Combine normal + special values
   const values = [
     ['M', 1000], ['CM', 900],
     ['D', 500],  ['CD', 400],
@@ -32,6 +13,8 @@ function convertToRoman(num) {
     ['V', 5],    ['IV', 4],
     ['I', 1]
   ];
+
+  let result = "";
 
   for (let [symbol, value] of values) {
     while (num >= value) {
@@ -43,6 +26,13 @@ function convertToRoman(num) {
   return result;
 }
 
-// do not edit below this line
-module.exports = convertToRoman;
+
+app.post("/romanConverter", (req, res) => {
+  const num = req.body.input;
+  const roman = convertToRoman(num);
+
+  res.json({ roman: roman });
+});
+
+app.listen(3000, () => console.log("Server running on port 3000"));
 	
